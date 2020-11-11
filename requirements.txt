@@ -1,0 +1,2 @@
+runway-python
+Pillow==6.2.0
