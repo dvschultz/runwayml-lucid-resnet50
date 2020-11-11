@@ -26,7 +26,29 @@ def setup(opts):
     return model
 
 input_options = {
-  'layer': category(choices=["conv1/Conv2D (max:64)", "block1/unit_1/preact/Relu (max:64)","block1/unit_2/conv1/Relu (max:64)", "block1/unit_1/add (max:256)", "block1/unit_2/add (max:256)", "block2/unit_1/preact/Relu (max:256)", "block3/unit_1/preact/Relu (max:512)", "block4/unit_1/preact/Relu (max:1024)", "postnorm/Relu (max:2048)"], default="block3/unit_1/preact/Relu (max:512)", description='choose layer of network to visualize'),
+  'layer': category(choices=["block1/unit_1/bottleneck_v2/preact/Relu (max:64)",
+        "block1/unit_1/bottleneck_v2/add (max:256)",
+        "block1/unit_2/bottleneck_v2/add (max:256)",
+        "block1/unit_3/bottleneck_v2/add (max:256)",
+        "block2/unit_1/bottleneck_v2/preact/Relu (max:64)",
+        "block2/unit_1/bottleneck_v2/add (max:512)",
+        "block2/unit_2/bottleneck_v2/add (max:512)",
+        "block2/unit_3/bottleneck_v2/add (max:512)",
+        "block2/unit_4/bottleneck_v2/add (max:512)",
+        "block3/unit_1/bottleneck_v2/preact/Relu (max:512)",
+        "block3/unit_1/bottleneck_v2/add (max:1024)",
+        "block3/unit_2/bottleneck_v2/add (max:1024)",
+        "block3/unit_3/bottleneck_v2/add (max:1024)",
+        "block3/unit_4/bottleneck_v2/add (max:1024)",
+        "block3/unit_5/bottleneck_v2/add (max:1024)",
+        "block3/unit_6/bottleneck_v2/add (max:1024)",
+        "block4/unit_1/bottleneck_v2/preact/Relu (max:1024)",
+        "block4/unit_1/bottleneck_v2/add (max:2048)",
+        "block4/unit_2/bottleneck_v2/add (max:2048)",
+        "block4/unit_3/bottleneck_v2/add (max:2048)",
+        "postnorm/Relu (max:2048)"
+        ], 
+        default="block3/unit_1/preact/Relu (max:512)", description='choose layer of network to visualize'),
   'neuron': number(default=0, min=0, max=2047, step=1, description='Neuron ID'),
   'size': number(default=128, min=128, max=1024, step=128, description='Image Size'),
   'transforms': boolean(default=False, description='Vary size of visualization'),
@@ -43,6 +65,7 @@ def generate(model, args):
 
     layer_id = args['layer'].split(' ')[0]
     layer_neuron = 'resnet_v2_50/{}:{}'.format(layer_id, args['neuron'])
+    print(layer_neuron)
 
     s = int(args['size'])
     min_scale = args['transform_min']
